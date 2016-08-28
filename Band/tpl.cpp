@@ -14,6 +14,7 @@
 #include<iomanip>
 #include<sstream>
 #include<ctime>
+#include<stdlib.h>
 #include<cassert>
 using namespace std;
 #define y0 y0z
@@ -60,7 +61,7 @@ inline void gn(long long&x){
 	int sg=1;char c;while(((c=getchar())<'0'||c>'9')&&c!='-');c=='-'?(sg=-1,x=0):(x=c-'0');
 	while((c=getchar())>='0'&&c<='9')x=x*10+c-'0';x*=sg;
 }
-// #define JCVB
+//#define JCVB
 inline void gn(int&x){long long t;gn(t);x=t;}
 inline void gn(unsigned long long&x){long long t;gn(t);x=t;}
 inline void gn(double&x){double t;scanf("%lf",&t);x=t;}
@@ -68,7 +69,10 @@ inline void gn(long double&x){double t;scanf("%lf",&t);x=t;}
 inline void gs(char *s){scanf("%s",s);}
 inline void gc(char &c){while((c=getchar())>126 || c<33);}
 inline void pc(char c){putchar(c);}
+//inline void ps(char *s){printf("%s\n",s);}
+inline void ps(string s){cout<<s<<endl;}
 inline void pn(int n){printf("%d\n",n);}
+inline void pn(long long n){printf("%lld\n",n);}
 #ifdef JCVB
 #define debug(...) fprintf(stderr, __VA_ARGS__)
 #else
@@ -84,46 +88,91 @@ const db eps=1e-6;
 //const int mo=0;
 //int qp(int a,ll b){int n=1;do{if(b&1)n=1ll*n*a%mo;a=1ll*a*a%mo;}while(b>>=1);return n;}
 
-char str[111][55];
+char str[1200];
+int A[4][1000];
+int X[4][1000];
+map<string,int>hashmap;
 int n;
-
-
-
+bool bingle(int r,int c,int k){
+	return hashmap.find(""+to_string(r)+"_"+to_string(c)+"_"+to_string(k))!=hashmap.end();
+}
+int getvalue(int r,int c,int k){
+	return hashmap[""+to_string(r)+"_"+to_string(c)+"_"+to_string(k)];
+}
+void setvalue(int r,int c,int k,int v){
+	hashmap.insert(pair<string,int>(""+to_string(r)+"_"+to_string(c)+"_"+to_string(k),v));
+}
 int main()
 {
 #ifdef JCVB
 	freopen("a.in","r",stdin);
 	freopen("a.out","w",stdout); 
 	
-    puts("This is the JCVB block, you can set a.in and a.out from stdin and stout");
+   
 	int _time_jc=clock();
-	pn(_time_jc);
+	//pn(_time_jc);
 	
 #endif
 
-	char s[111];
-	gets(s);
-	puts(s);
-	int n;
-	gn(n);
-	rep(i,0,n){
-		pc(s[i]);
+
+	int tes;
+	//cout<<"HELLO"<<endl;
+	gn(tes);
+	//ps("HELLO");
+	//;
+	rep(_,1,tes+1){
+		printf("Case #%d: ",_);
+		int k;
+		gn(n);
+		gn(k);
+	 	rep(i,0,n){
+	 		//gets(str[i]);
+			 cout<<"a"<<endl;
+			 gn(A[0][i]);
+	 	}
+		 rep(i,0,n){
+	 		//gets(str[i]);
+			 gn(A[1][i]);
+	 	}
+		 rep(i,0,n){
+	 		//gets(str[i]);
+			 gn(A[2][i]);
+	 	}
+		 rep(i,0,n){
+	 		//gets(str[i]);
+			 gn(A[3][i]);
+	 	}
+		int res=0;
+		rep(i,0,n){
+			
+			if(bingle(0,A[0][i],k)){res+=getvalue(0,A[0][i],k);continue;}
+
+			int x=A[0][i];
+			rep(i,0,n){
+				int oldres=res;
+				
+				int kk=x;
+				kk^=A[1][i];
+				if(bingle(1,A[1][i],kk)){res+=getvalue(1,A[1][i],kk);continue;}
+				rep(i,0,n){
+					int j=kk;
+					int oldres2=res;
+					j^=A[2][i];
+					if(bingle(2,A[2][i],j)){res+=getvalue(2,A[2][i],j);continue;}
+					rep(i,0,n){
+						int m=j;
+						m^=A[3][i];
+						 if(m==k)res++;
+					}
+					setvalue(2,A[2][i],j,res-oldres2);
+				}
+				setvalue(1,A[1][i],kk,res-oldres);
+
+			}
+			setvalue(0,A[0][i],k,res);
+		}
+		pn(res);
 	}
-	pc('\n');
-	
-    puts("This is the main block that you can use stdin and stdout to do things");
-	// int tes;
-	// gn(tes);
-	// rep(_,1,tes+1){
-	// 	printf("Case #%d: ",_);
-	// 	gn(n);
-	// 	rep(i,0,n){
-	// 		gets(str[i]);
-	// 	}
-	// 	int cur=0;
-	// 	rep(i,1,n)if(da(str[i],str[cur]))cur=i;
-	// 	puts(str[cur]);
-	// }
 
 	
 #ifdef JCVB

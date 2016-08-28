@@ -60,7 +60,7 @@ inline void gn(long long&x){
 	int sg=1;char c;while(((c=getchar())<'0'||c>'9')&&c!='-');c=='-'?(sg=-1,x=0):(x=c-'0');
 	while((c=getchar())>='0'&&c<='9')x=x*10+c-'0';x*=sg;
 }
-// #define JCVB
+ #define JCVB
 inline void gn(int&x){long long t;gn(t);x=t;}
 inline void gn(unsigned long long&x){long long t;gn(t);x=t;}
 inline void gn(double&x){double t;scanf("%lf",&t);x=t;}
@@ -68,7 +68,9 @@ inline void gn(long double&x){double t;scanf("%lf",&t);x=t;}
 inline void gs(char *s){scanf("%s",s);}
 inline void gc(char &c){while((c=getchar())>126 || c<33);}
 inline void pc(char c){putchar(c);}
+inline void ps(char *s){printf("%s\n",s);}
 inline void pn(int n){printf("%d\n",n);}
+inline void pn(long long n){printf("%lld\n",n);}
 #ifdef JCVB
 #define debug(...) fprintf(stderr, __VA_ARGS__)
 #else
@@ -84,46 +86,70 @@ const db eps=1e-6;
 //const int mo=0;
 //int qp(int a,ll b){int n=1;do{if(b&1)n=1ll*n*a%mo;a=1ll*a*a%mo;}while(b>>=1);return n;}
 
-char str[111][55];
+char str[1200];
 int n;
+
+int check3(char a,char b,char c){
+	int res=1;
+	//pn(res);
+	if(a!=-1&&c!=-1){
+		if(a!=b){
+			res++;
+		}
+		if(a!=c&&b!=c)res++;
+		return res;
+	}
+	if(a==-1&&c!=-1){
+		if(b!=c)res++;
+	}
+	if(a!=-1&&c==-1){
+		if(a!=b)res++;
+	}
+	//pn(res);
+	//ps("aaa");
+	return res;
+}
+
+int check(char* str, int n){
+
+	if(n==0){
+		if(!str[1])return 1;
+		return check3(-1,str[0],str[1]);
+	}
+	if(!str[n+1])return check3(str[n-1],str[n],-1);
+	return check3(str[n-1],str[n],str[n+1]);
+}
 
 
 
 int main()
 {
+
 #ifdef JCVB
 	freopen("a.in","r",stdin);
 	freopen("a.out","w",stdout); 
 	
-    puts("This is the JCVB block, you can set a.in and a.out from stdin and stout");
 	int _time_jc=clock();
-	pn(_time_jc);
 	
 #endif
 
-	char s[111];
-	gets(s);
-	puts(s);
-	int n;
-	gn(n);
-	rep(i,0,n){
-		pc(s[i]);
-	}
-	pc('\n');
+	 
+	 int tes;
+	 gn(tes);
+	 rep(_,1,tes+1){
+		printf("Case #%d: ",_);
+		
+			gets(str);
+			ll x=check(str,0);
+			rep(j,1,1200){
+				if(!str[j])break;
+				x*=check(str,j);
+				x%=1000000007;
+			}
+			pn(x);
+		
 	
-    puts("This is the main block that you can use stdin and stdout to do things");
-	// int tes;
-	// gn(tes);
-	// rep(_,1,tes+1){
-	// 	printf("Case #%d: ",_);
-	// 	gn(n);
-	// 	rep(i,0,n){
-	// 		gets(str[i]);
-	// 	}
-	// 	int cur=0;
-	// 	rep(i,1,n)if(da(str[i],str[cur]))cur=i;
-	// 	puts(str[cur]);
-	// }
+	 }
 
 	
 #ifdef JCVB
