@@ -60,7 +60,7 @@ inline void gn(long long&x){
 	int sg=1;char c;while(((c=getchar())<'0'||c>'9')&&c!='-');c=='-'?(sg=-1,x=0):(x=c-'0');
 	while((c=getchar())>='0'&&c<='9')x=x*10+c-'0';x*=sg;
 }
-// #define JCVB
+#define JCVB
 inline void gn(int&x){long long t;gn(t);x=t;}
 inline void gn(unsigned long long&x){long long t;gn(t);x=t;}
 inline void gn(double&x){double t;scanf("%lf",&t);x=t;}
@@ -97,35 +97,44 @@ int main()
 	freopen("a.in","r",stdin);
 	freopen("a.out","w",stdout); 
 	
-    puts("This is the JCVB block, you can set a.in and a.out from stdin and stout");
+    //puts("This is the JCVB block, you can set a.in and a.out from stdin and stout");
 	int _time_jc=clock();
-	pn(_time_jc);
+	//pn(_time_jc);
 	
 #endif
 
-	char s[111];
-	gets(s);
-	puts(s);
-	int n;
-	gn(n);
-	rep(i,0,n){
-		pc(s[i]);
-	}
-	pc('\n');
 	
-    puts("This is the main block that you can use stdin and stdout to do things");
-	// int tes;
-	// gn(tes);
-	// rep(_,1,tes+1){
-	// 	printf("Case #%d: ",_);
-	// 	gn(n);
-	// 	rep(i,0,n){
-	// 		gets(str[i]);
-	// 	}
+	int tes;
+	gn(tes);
+	rep(_,1,tes+1){
+	printf("Case #%d: ",_);
+	vector<ll> x1,x2;
+
+	 	gn(n);
+		rep(i,0,n){
+			int x;
+			gn(x);
+			x1.pb(x);
+		}
+		rep(i,0,n){
+			int x;
+			gn(x);
+			x2.pb(x);
+		}
+		sort(x1.begin(),x1.end());
+		pvll(x1);
+		sort(x2.begin(),x2.end());
+		pvll(x2);
+		ll res=0;
+		rep(i,0,n){
+			res+=(x1[i])*(x2[n-1-i]);
+			
+		}
+		pn(res);
 	// 	int cur=0;
 	// 	rep(i,1,n)if(da(str[i],str[cur]))cur=i;
 	// 	puts(str[cur]);
-	// }
+	}
 
 	
 #ifdef JCVB
